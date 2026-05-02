@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Digital Bank BD - Official Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #003366; --gold: #c5a059; --green: #2ecc71;
+            --danger: #e74c3c; --white: #ffffff; --glass: rgba(255, 255, 255, 0.95);
+        }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; background: #0f172a; color: #333; 
+            background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+
+        .side-float { position: fixed; right: 15px; bottom: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .side-float a { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
+        .wa-btn { background: #25D366; } .fb-btn { background: #1877F2; }
+
+        header { background: var(--glass); padding: 15px; text-align: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .logo-text { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .logo-text span { color: var(--gold); }
+
+        .container { max-width: 500px; margin: 20px auto; padding: 15px; }
+        
+        .card { 
+            background: var(--glass); border-radius: 25px; padding: 30px; display: none; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(197, 160, 89, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .card.active { display: block; animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { text-align: center; font-size: 20px; color: var(--primary); margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; box-sizing: border-box; background: white; }
+
+        .btn-next { 
+            background: linear-gradient(45deg, var(--primary), #0056b3); color: white; 
+            border: none; padding: 16px; width: 100%; border-radius: 15px; font-size: 18px; 
+            font-weight: bold; cursor: pointer; box-shadow: 0 8px 20px rgba(0,51,102,0.3); transition: 0.3s; margin-top: 15px;
+        }
+
+        .res-box { background: #e0f2fe; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #bae6fd; margin-top: 15px; }
+        .res-box b { font-size: 28px; color: var(--primary); }
+
+        /* Updated Payment Option Styling */
+        .pay-box { background: white; border: 1px solid var(--gold); border-radius: 15px; margin: 15px 0; overflow: hidden; }
+        .pay-item { padding: 18px; display: flex; align-items: center; cursor: pointer; border-bottom: 1px solid #eee; transition: 0.2s; position: relative; }
+        .pay-item:hover { background: #f0f7ff; }
+        .pay-item i { font-size: 24px; margin-right: 15px; }
+        .pay-item .method-name { font-weight: bold; font-size: 16px; }
+        .pay-item.bkash i { color: #D12053; }
+        .pay-item.nagad i { color: #F7941D; }
+        .pay-item.disabled { background: #f9f9f9; cursor: not-allowed; opacity: 0.7; }
+        .status-tag { position: absolute; right: 15px; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
+        .status-off { background: #fee2e2; color: #ef4444; }
+        .status-on { background: #dcfce7; color: #16a34a; }
+
+        .instr-box { display: none; background: #fff3cd; padding: 15px; border-radius: 10px; margin-top: 10px; color: #856404; font-size: 13px; }
+        .copy-area { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px; border: 1px dashed var(--primary); border-radius: 8px; margin: 10px 0; font-weight: bold; }
+
+        .receipt { background: white; padding: 25px; border: 2px solid #333; border-radius: 5px; font-family: 'Courier New', Courier, monospace; }
+        .receipt-row { display: flex; justify-content: space-between; border-bottom: 1px dotted #ccc; margin-bottom: 10px; padding-bottom: 5px; }
+
+        footer { background: #001a33; color: #94a3b8; padding: 40px 20px; text-align: center; margin-top: 50px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-text">GLOBAL DIGITAL BANK <span>BD</span></div>
+    <div style="font-size: 11px; color: var(--green); font-weight: bold; margin-top: 5px;">
+        <i class="fas fa-shield-alt"></i> ISO 27001 SECURED PORTAL | 2026 OFFICIAL
+    </div>
+</header>
+
+<div class="side-float">
+    <a href="https://wa.me/8801835418706" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.facebook.com/share/1Bum4rVF9u/" class="fb-btn"><i class="fab fa-facebook-f"></i></a>
+</div>
+
+<div class="container">
+
+    <div id="step1" class="card active">
+        <h2>লোন ক্যালকুলেটর (৪%)</h2>
+        <div class="input-group">
+            <label>লোনের পরিমাণ (৳)</label>
+            <input type="number" id="amt" value="100000" oninput="calcLoan()">
+            <input type="range" min="10000" max="1000000" step="5000" value="100000" style="margin-top:10px" oninput="document.getElementById('amt').value=this.value; calcLoan();">
+        </div>
+        <div class="input-group">
+            <label>পরিশোধের সময়সীমা</label>
+            <select id="yrs" onchange="calcLoan()">
+                <option value="1">১ বছর (১২ কিস্তি)</option>
+                <option value="2">২ বছর (২৪ কিস্তি)</option>
+                <option value="3">৩ বছর (৩৬ কিস্তি)</option>
+                <option value="5">৫ বছর (৬০ কিস্তি)</option>
+            </select>
+        </div>
+        <div class="res-box">
+            <span style="font-size: 14px; color: #0369a1;">মাসিক কিস্তি মাত্র:</span><br>
+            <b>৳ <span id="emi">০</span></b><br>
+            <small style="color: #0369a1;">বাৎসরিক মুনাফা হার ৪% (ফিক্সড)</small>
+        </div>
+        <button class="btn-next" onclick="nextStep(2)">আবেদন এগিয়ে নিন <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <div id="step2" class="card">
+        <h2>পার্সোনাল ইনফরমেশন</h2>
+        <div class="input-group">
+            <label>আবেদনকারীর পূর্ণ নাম</label>
+            <input type="text" id="uName" placeholder="NID অনুযায়ী নাম">
+        </div>
+        <div class="input-group">
+            <label>মোবাইল নম্বর</label>
+            <input type="text" id="uPhone" placeholder="017XXXXXXXX">
+        </div>
+        <div class="input-group">
+            <label>আপনার ছবি ও NID (সামনে ও পিছনে)</label>
+            <input type="file" accept="image/*" style="margin-bottom:5px">
+            <input type="file" accept="image/*" style="margin-bottom:5px">
+            <input type="file" accept="image/*">
+        </div>
+
+        <h2 style="margin-top:30px; color:var(--gold)">নমিনির তথ্য (Nominee)</h2>
+        <div class="input-group">
+            <label>নমিনির পূর্ণ নাম</label>
+            <input type="text" id="nName" placeholder="নমিনির নাম">
+        </div>
+        <div class="input-group">
+            <label>সম্পর্ক</label>
+            <input type="text" placeholder="যেমন: বাবা/মা/স্ত্রী">
+        </div>
+        <div class="input-group">
+            <label>নমিনির ছবি ও NID (সামনে ও পিছনে)</label>
+            <input type="file" accept="image/*" style="margin-bottom:5px">
+            <input type="file" accept="image/*" style="margin-bottom:5px">
+            <input type="file" accept="image/*">
+        </div>
+
+        <div class="input-group">
+            <label>টাকা প্রাপ্তির মাধ্যম</label>
+            <select id="method">
+                <option>বিকাশ</option><option>নগদ</option><option>ব্যাংক অ্যাকাউন্ট</option>
+            </select>
+            <input type="text" id="acc" placeholder="অ্যাকাউন্ট নম্বর দিন" style="margin-top:10px">
+        </div>
+        <button class="btn-next" onclick="nextStep(3)">ফি জমা দিন <i class="fas fa-lock"></i></button>
+    </div>
+
+    <div id="step3" class="card">
+        <h2>আবেদন ফি (৳ ৩৫০)</h2>
+        <div class="pay-box">
+            <div class="pay-item nagad" onclick="openGate('Nagad', '01350028847', 'f')">
+                <i class="fas fa-money-bill-wave"></i>
+                <span class="method-name">নগদ (Nagad)</span>
+                <span class="status-tag status-on">সচল</span>
+            </div>
+            <div class="pay-item bkash disabled" onclick="alert('বিকাশ গেটওয়ে এখন রক্ষণাবেক্ষণের জন্য বন্ধ আছে। অনুগ্রহ করে নগদ ব্যবহার করুন।')">
+                <i class="fas fa-wallet"></i>
+                <span class="method-name">বিকাশ (bKash)</span>
+                <span class="status-tag status-off">বন্ধ</span>
+            </div>
+        </div>
+        <div id="fInstr" class="instr-box">
+            <p>নিচের নাম্বারে ৩৫০ টাকা <b>Send Money</b> করুন এবং TrxID দিন:</p>
+            <div class="copy-area"><span id="fNum"></span> <button onclick="copyIt('fNum')">Copy</button></div>
+            <input type="text" id="fTrx" placeholder="Enter Transaction ID">
+            <button class="btn-next" onclick="nextStep(4)">আমানত জমা করুন</button>
+        </div>
+    </div>
+
+    <div id="step4" class="card">
+        <h2>নিরাপত্তা আমানত (২%)</h2>
+        <div style="text-align: center; padding: 15px; background: #fff5f5; border-radius: 10px; border: 1px solid #feb2b2; margin-bottom: 20px;">
+            <p style="margin:0; font-size: 14px;">আপনার প্রদেয় আমানত:</p>
+            <b style="font-size: 26px; color: var(--danger);">৳ <span id="sAmtDisplay">0</span></b>
+        </div>
+        <div class="pay-box">
+            <div class="pay-item nagad" onclick="openGate('Nagad', '01350028847', 's')">
+                <i class="fas fa-money-bill-wave"></i>
+                <span class="method-name">নগদ (Nagad)</span>
+                <span class="status-tag status-on">সচল</span>
+            </div>
+        </div>
+        <div id="sInstr" class="instr-box">
+            <p>নিচের নাম্বারে আমানত <b>Send Money</b> করে TrxID দিন:</p>
+            <div class="copy-area"><span id="sNum"></span> <button onclick="copyIt('sNum')">Copy</button></div>
+            <input type="text" id="sTrx" placeholder="Enter Deposit TrxID">
+            <button class="btn-next" onclick="showSlip()">স্লিপ সংগ্রহ করুন</button>
+        </div>
+    </div>
+
+    <div id="step5" class="card">
+        <div class="receipt" id="finalSlip">
+            <h3 style="text-align:center; border-bottom: 2px solid #000; padding-bottom: 10px;">LOAN APPROVAL COPY</h3>
+            <div class="receipt-row"><span>Receipt ID:</span> <b id="rId"></b></div>
+            <div class="receipt-row"><span>Applicant:</span> <b id="rName"></b></div>
+            <div class="receipt-row"><span>Loan Amount:</span> <b id="rAmt"></b></div>
+            <div class="receipt-row"><span>Deposit:</span> <b id="rDep"></b></div>
+            <div class="receipt-row"><span>Interest:</span> <b>4% Fixed</b></div>
+            <div style="background: #fff3cd; padding: 10px; text-align: center; margin-top: 15px; font-weight: bold; border-radius: 4px;">
+                STATUS: UNDER PROCESSING
+            </div>
+            <p style="font-size: 10px; margin-top: 15px; color: #666; text-align: center;">* এই আমানতটি লোন অনুমোদনের পর ফেরতযোগ্য।</p>
+        </div>
+        <button class="btn-next" onclick="window.print()"><i class="fas fa-download"></i> স্লিপ ডাউনলোড করুন</button>
+    </div>
+
+</div>
+
+<footer>
+    <p><i class="fas fa-map-marker-alt"></i> হেড অফিস: লেভেল ৪, মতিঝিল সেন্টার, ঢাকা-১০০০।</p>
+    <p>© 2026 Global Digital Bank BD. All Rights Reserved.</p>
+</footer>
+
+<script>
+    let appData = {};
+
+    function calcLoan() {
+        let a = document.getElementById('amt').value;
+        let y = document.getElementById('yrs').value;
+        let total = (parseFloat(a) + (a * 0.04 * y));
+        let emi = total / (y * 12);
+        document.getElementById('emi').innerText = Math.round(emi).toLocaleString('bn-BD');
+    }
+
+    function nextStep(s) {
+        if(s === 2) {
+            appData.loan = document.getElementById('amt').value;
+        }
+        if(s === 3) {
+            let n = document.getElementById('uName').value;
+            let p = document.getElementById('uPhone').value;
+            if(!n || !p) return alert('অনুগ্রহ করে নাম ও মোবাইল নাম্বার দিন');
+            appData.name = n;
+        }
+        if(s === 4) {
+            if(!document.getElementById('fTrx').value) return alert('ফি-এর TrxID দিন');
+            appData.depAmt = appData.loan * 0.02;
+            document.getElementById('sAmtDisplay').innerText = appData.depAmt.toLocaleString('bn-BD');
+        }
+        
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        document.getElementById('step' + s).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function openGate(method, num, type) {
+        let box = (type === 'f') ? 'fInstr' : 'sInstr';
+        let numId = (type === 'f') ? 'fNum' : 'sNum';
+        document.getElementById(box).style.display = 'block';
+        document.getElementById(numId).innerText = num;
+    }
+
+    function copyIt(id) {
+        let txt = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(txt);
+        alert('নাম্বার কপি হয়েছে!');
+    }
+
+    function showSlip() {
+        if(!document.getElementById('sTrx').value) return alert('আমানতের TrxID দিন');
+        document.getElementById('rId').innerText = "GDB-LB-" + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('rName').innerText = appData.name;
+        document.getElementById('rAmt').innerText = appData.loan + " ৳";
+        document.getElementById('rDep').innerText = appData.depAmt + " ৳ (Paid)";
+        nextStep(5);
+    }
+
+    calcLoan();
+</script>
+
+</body>
+</html>
